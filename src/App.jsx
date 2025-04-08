@@ -1,5 +1,11 @@
+import { MainContent } from "./pages/MainContent";
+
 function App() {
-  return <>App</>;
+  return (
+    <>
+      <MainContent />
+    </>
+  );
 }
 
 export default App;
