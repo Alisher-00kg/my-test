@@ -1,9 +1,22 @@
 import styled from "styled-components";
-import { Icons } from "../../assets";
-import Input from "./Input";
-import { Button } from "./Button";
+import { Icons } from "../../../assets";
+import Input from "../Input";
+import IconButton from "../button/IconButton";
+import { useContext, useState } from "react";
+import { MealsContext } from "../../../context/MealsContext";
 
-export const MainCard = ({ id, title, structure, price, amount, item }) => {
+export const MainCard = ({ id, title, structure, price }) => {
+  const { onAddMeals } = useContext(MealsContext);
+  const [enteredInput, setEnteredInput] = useState(1);
+  const handleChange = (e) => {
+    setEnteredInput(Number(e.target.value));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onAddMeals({ value: enteredInput, id: id });
+    setEnteredInput(1);
+  };
   return (
     <StyledLi>
       <FoodContainer>
@@ -11,15 +24,21 @@ export const MainCard = ({ id, title, structure, price, amount, item }) => {
         <Structure>{structure}</Structure>
         <Cost>${price}</Cost>
       </FoodContainer>
-      <AmountContainer>
+      <AmountContainer onSubmit={handleSubmit}>
         <StyledAmount>
           <StyledLabel htmlFor={id}>Amount</StyledLabel>
-          <StyledInputNumber type="number" value={amount} min={1} max={5} />
+          <StyledInputNumber
+            type="number"
+            value={enteredInput}
+            min={1}
+            max={5}
+            onChange={handleChange}
+          />
         </StyledAmount>
-        <Button variant={"add"} onClick={() => {}}>
+        <IconButton variant={"add"}>
           <Icons.PlusWhite />
           Add
-        </Button>
+        </IconButton>
       </AmountContainer>
     </StyledLi>
   );
@@ -61,7 +80,7 @@ const Cost = styled.p`
   line-height: 30px;
   text-align: left;
 `;
-const AmountContainer = styled.div`
+const AmountContainer = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;

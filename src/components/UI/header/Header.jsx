@@ -1,5 +1,5 @@
 import React from "react";
-import { HeaderButton } from "./UI/HeaderButton";
+import { HeaderButton } from "./HeaderButton";
 import styled from "styled-components";
 
 export const Header = () => {

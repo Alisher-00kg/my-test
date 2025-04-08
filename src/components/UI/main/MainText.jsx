@@ -34,6 +34,10 @@ const StyledBox = styled.div`
   box-shadow: 0px 6px 16px 0px rgba(0, 0, 0, 0.3);
   gap: 20px;
   padding: 40px 120px;
+  h1 {
+    font-weight: 600;
+    font-size: 36px;
+  }
   p {
     text-align: center;
   }

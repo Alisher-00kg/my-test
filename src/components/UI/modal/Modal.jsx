@@ -1,15 +1,17 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { ModalContext } from "../../context/ModalContext";
+import { ModalContext } from "../../../context/ModalContext";
+import { createPortal } from "react-dom";
 
 export const Modal = ({ children }) => {
   const { onClose } = useContext(ModalContext);
-  return (
+  return createPortal(
     <StyledBackdrop onClick={onClose}>
       <ContentModalStyled onClick={(event) => event.stopPropagation()}>
         {children}
       </ContentModalStyled>
-    </StyledBackdrop>
+    </StyledBackdrop>,
+    document.getElementById("modal")
   );
 };
 
@@ -20,13 +22,14 @@ const StyledBackdrop = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 const ContentModalStyled = styled.div`
   width: 671px;
-  height: 437px;
+  height: fit-content;
   background-color: #fff;
   color: #000;
   display: flex;
