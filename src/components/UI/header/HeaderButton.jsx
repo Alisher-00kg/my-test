@@ -14,7 +14,9 @@ export const HeaderButton = () => {
   const totalCount = newMeals?.reduce((acc, item) => {
     return acc + item.amount;
   }, 0);
-
+  const totalPrice = newMeals?.reduce((acc, item) => {
+    return acc + item.price * item.amount;
+  }, 0);
   useEffect(() => {
     setBounce("bounce");
 
@@ -40,10 +42,10 @@ export const HeaderButton = () => {
 
           <>
             <ContainerofCost>
-              <StyledH2>Total Amount</StyledH2>
+              <StyledH2>Total Price</StyledH2>
               <DivCost2>
                 <StyledSpanAmount>
-                  ${totalCount > 0 ? totalCount : "0.00"}
+                  ${totalCount > 0 ? totalPrice.toFixed(2) : "0.00"}
                 </StyledSpanAmount>
                 <DivOrderingClosing>
                   <Button variant={"close"} onClick={onClose}>
